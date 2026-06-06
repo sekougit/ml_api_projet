@@ -1,7 +1,13 @@
 import joblib
 import pandas as pd
 
-model = joblib.load("models/pipeline.pkl")
+import os
+import joblib
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+model_path = os.path.join(BASE_DIR, "models", "pipeline.pkl")
+
+model = joblib.load(model_path)
 
 def predict(data):
 
