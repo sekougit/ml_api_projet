@@ -11,11 +11,18 @@ MODEL_PATH = BASE_DIR / "models" / "pipeline.pkl"
 print("MODEL_PATH =", MODEL_PATH)
 print("Existe ?", MODEL_PATH.exists())
 
+# mapping des classes Iris
+LABELS = {
+    0: "setosa",
+    1: "versicolor",
+    2: "virginica"
+}
+
 model = joblib.load(MODEL_PATH)
 def predict(data):
 
     X = pd.DataFrame([data])
 
-    prediction = model.predict(X)
+    pred = model.predict(X)[0]
 
-    return int(prediction[0])
+    return LABELS[int(pred)]
