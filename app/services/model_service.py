@@ -1,14 +1,17 @@
 import joblib
 import pandas as pd
 
-import os
+from pathlib import Path
 import joblib
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-model_path = os.path.join(BASE_DIR, "models", "pipeline.pkl")
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-model = joblib.load(model_path)
+MODEL_PATH = BASE_DIR / "models" / "pipeline.pkl"
 
+print("MODEL_PATH =", MODEL_PATH)
+print("Existe ?", MODEL_PATH.exists())
+
+model = joblib.load(MODEL_PATH)
 def predict(data):
 
     X = pd.DataFrame([data])
