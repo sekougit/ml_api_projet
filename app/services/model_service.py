@@ -19,10 +19,19 @@ LABELS = {
 }
 
 model = joblib.load(MODEL_PATH)
+
 def predict(data):
 
     X = pd.DataFrame([data])
 
     pred = model.predict(X)[0]
+    proba = model.predict_proba(X)[0]
 
-    return LABELS[int(pred)]
+    return {
+        "prediction": LABELS[int(pred)],
+        "confidence": float(max(proba)),
+        "probabilities": {
+            LABELS[i]: float(proba[i])
+            for i in range(len(proba))
+        }
+    }
